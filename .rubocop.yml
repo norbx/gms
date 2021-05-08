@@ -1,0 +1,10 @@
+AllCops:
+  SuggestExtensions: false
+  NewCops: enable
+  Exclude:
+    - config.ru
+    - config/**/*
+    - bin/**/*
+
+Style/Documentation:
+  Enabled: false
