@@ -5,7 +5,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.0'
 
+gem 'bcrypt', '~> 3.1', '>= 3.1.16'
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'devise', '~> 4.8'
+gem 'devise-jwt', '~> 0.8.1'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
@@ -20,7 +23,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'dotenv', '~> 2.7', '>= 2.7.6'
+  gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
   gem 'factory_bot', '~> 6.2'
   gem 'pry', '~> 0.14.1'
   gem 'rspec-rails', '~> 5.0', '>= 5.0.1'
