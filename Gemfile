@@ -22,6 +22,7 @@ end
 group :development, :test do
   gem 'dotenv', '~> 2.7', '>= 2.7.6'
   gem 'factory_bot', '~> 6.2'
+  gem 'pry', '~> 0.14.1'
   gem 'rspec-rails', '~> 5.0', '>= 5.0.1'
   gem 'rubocop', '~> 1.14'
 end
