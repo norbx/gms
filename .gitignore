@@ -28,3 +28,6 @@
 
 # IntelliJ files
 .idea/
+
+# Env file
+.env

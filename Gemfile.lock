@@ -68,6 +68,7 @@ GEM
     concurrent-ruby (1.1.8)
     crass (1.0.6)
     diff-lcs (1.4.4)
+    dotenv (2.7.6)
     erubi (1.10.0)
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
@@ -187,6 +188,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
+  dotenv (~> 2.7, >= 2.7.6)
   factory_bot (~> 6.2)
   listen (~> 3.3)
   pg (~> 1.1)
