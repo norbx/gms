@@ -5,7 +5,9 @@ class SessionsController < Devise::SessionsController
     user = User.find_by_email(sign_in_params[:email])
   
     if user && user.valid_password?(sign_in_params[:password])
-      head :ok
+      token = user.generate_jwt
+      
+      render json: { token: token }, status: :ok
     else
       head :unprocessable_entity
     end
