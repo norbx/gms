@@ -12,6 +12,7 @@ gem 'devise-jwt', '~> 0.8.1'
 gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
+gem 'rack-cors', '~> 1.1', '>= 1.1.1'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
 
 group :development, :test do
