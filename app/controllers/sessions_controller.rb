@@ -9,7 +9,7 @@ class SessionsController < Devise::SessionsController
       
       render json: { token: token }, status: :ok
     else
-      head :unathorized
+      head :unauthorized
     end
   end
 end
