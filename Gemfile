@@ -25,7 +25,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'factory_bot', '~> 6.2'
+  gem 'factory_bot_rails', '~> 6.2'
   gem 'pry', '~> 0.14.1'
   gem 'rspec-rails', '~> 5.0', '>= 5.0.1'
   gem 'rubocop', '~> 1.14'

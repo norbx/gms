@@ -3,10 +3,10 @@
 class ApplicationController < ActionController::API
 	respond_to :json
 
-	before_action :process_token
+	before_action :process_token, :authenticate_user!
 
 	def authenticate_user!
-		head :unathorized unless signed_in?
+		head :unauthorized unless signed_in?
 	end
 
 	def signed_in?
