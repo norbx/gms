@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class JwtToken
-  EXPIRE_DATE = 7.days.from_now.to_i
+  EXPIRY_DATE = 7.days.from_now.to_i
   SECRET_KEY = Rails.application.secrets.secret_key_base
 
   class << self
@@ -10,15 +10,16 @@ class JwtToken
     end
 
     def decode_token(token)
-      JWT.decode(token)
+      JWT.decode(token).with_indifferent_access
     end
 
     private
 
     def payload(user)
       {
-        exp: EXPIRE_DATE,
-        username: user.username
+        exp: EXPIRY_DATE,
+        username: user.username,
+        iat: Time.now.to_i
       }
     end
   end
