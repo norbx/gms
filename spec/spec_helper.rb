@@ -18,7 +18,6 @@
 
 Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 
-require 'devise'
 require 'factory_bot'
 
 RSpec.configure do |config|
