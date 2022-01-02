@@ -16,7 +16,7 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
+Dir['./spec/support/**/*.rb'].each { |f| require f }
 
 require 'factory_bot'
 

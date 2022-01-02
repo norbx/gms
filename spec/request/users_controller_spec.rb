@@ -19,7 +19,7 @@ RSpec.describe UsersController, type: :request do
     end
 
     it 'creates a user' do
-      expect{ request }.to change(User, :count).by(1)
+      expect { request }.to change(User, :count).by(1)
     end
 
     it 'returns status created' do
@@ -38,7 +38,7 @@ RSpec.describe UsersController, type: :request do
       before { params[:user][:password] = '' }
 
       it 'does not create a user' do
-        expect{ request }.not_to change(User, :count)
+        expect { request }.not_to change(User, :count)
       end
 
       it 'returns status unproccessable entity' do
@@ -52,7 +52,7 @@ RSpec.describe UsersController, type: :request do
       before { params[:user].delete(:password) }
 
       it 'does not create a user' do
-        expect{ request }.not_to change(User, :count)
+        expect { request }.not_to change(User, :count)
       end
 
       it 'returns status unproccessable entity' do
@@ -61,6 +61,5 @@ RSpec.describe UsersController, type: :request do
         expect(response).to have_http_status(422)
       end
     end
-
   end
 end
