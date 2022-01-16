@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
   before_action :authenticate
 
   def authenticate
-    authenticate_or_request_with_http_token do |token, options|
+    authenticate_or_request_with_http_token do |token, _options|
       decoded_token = decode_token(token)
       user_exists(decoded_token[:email]) && token_not_expired(decoded_token[:exp])
     end
