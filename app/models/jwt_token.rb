@@ -10,7 +10,7 @@ class JwtToken
     end
 
     def decode_token(token)
-      JWT.decode(token).with_indifferent_access
+      JWT.decode(token, SECRET_KEY)[0].with_indifferent_access
     end
 
     private
@@ -18,7 +18,7 @@ class JwtToken
     def payload(user)
       {
         exp: EXPIRY_DATE,
-        username: user.username,
+        email: user.email,
         iat: Time.now.to_i
       }
     end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
+  skip_before_action :authenticate, only: :create
+
   def create
     if user&.authenticate(user_params[:password])
       render json: { token: token }, status: :ok

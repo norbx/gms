@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  skip_before_action :authenticate, only: :create
+
+  def index
+    render json: { users: User.all.to_a }
+  end
+
   def create
     user = User.new(user_params)
 
