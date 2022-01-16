@@ -8,7 +8,10 @@ class ApplicationController < ActionController::API
   def authenticate
     authenticate_or_request_with_http_token do |token, _options|
       decoded_token = decode_token(token)
-      user_exists(decoded_token[:email]) && token_not_expired(decoded_token[:exp])
+      return head :forbidden if decoded_token.nil?
+
+      params = decoded_token[0].with_indifferent_access
+      user_exists(params[:email]) && token_not_expired(params[:exp])
     end
   end
 

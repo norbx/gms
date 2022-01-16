@@ -10,7 +10,9 @@ class JwtToken
     end
 
     def decode_token(token)
-      JWT.decode(token, SECRET_KEY)[0].with_indifferent_access
+      JWT.decode(token, SECRET_KEY)
+    rescue JWT::VerificationError
+      nil
     end
 
     private
