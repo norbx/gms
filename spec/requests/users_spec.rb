@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :request do
-  describe 'POST /create' do
+  describe 'POST /users' do
     subject(:request) { post '/users', params: params }
 
     let(:params) do
@@ -18,47 +18,39 @@ RSpec.describe UsersController, type: :request do
       }
     end
 
-    it 'creates a user' do
+    it 'creates a user and returns successful response' do
       expect { request }.to change(User, :count).by(1)
-    end
-
-    it 'returns status created' do
-      request
-
       expect(response).to have_http_status(201)
-    end
-
-    it 'returns a token' do
-      request
-
       expect(json_response).to have_key(:token)
     end
 
     context 'with blank password' do
       before { params[:user][:password] = '' }
 
-      it 'does not create a user' do
+      it 'creates no user and returns error response' do
         expect { request }.not_to change(User, :count)
-      end
-
-      it 'returns status unproccessable entity' do
-        request
-
         expect(response).to have_http_status(422)
+        expect(response.body).to include('Password can\'t be blank', 'Password is too short (minimum is 6 characters)')
       end
     end
 
-    context 'with missing password' do
-      before { params[:user].delete(:password) }
+    context 'with blank username' do
+      before { params[:user][:username] = '' }
 
-      it 'does not create a user' do
+      it 'creates no user and returns error response' do
         expect { request }.not_to change(User, :count)
-      end
-
-      it 'returns status unproccessable entity' do
-        request
-
         expect(response).to have_http_status(422)
+        expect(response.body).to include('Username can\'t be blank')
+      end
+    end
+
+    context 'with blank email' do
+      before { params[:user][:email] = '' }
+
+      it 'creates no user and returns error response' do
+        expect { request }.not_to change(User, :count)
+        expect(response).to have_http_status(422)
+        expect(response.body).to include('Email can\'t be blank')
       end
     end
   end

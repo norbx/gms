@@ -19,15 +19,10 @@ RSpec.describe SessionsController, type: :request do
 
     before { user }
 
-    it 'returns status 200' do
+    it 'returns a token and a status 200' do
       request
 
       expect(response).to have_http_status(200)
-    end
-
-    it 'returns a token' do
-      request
-
       expect(json_response).to have_key(:token)
     end
 
