@@ -3,6 +3,27 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :request do
+  describe 'GET /users/:id' do
+    subject { get "/users/#{user.id}", headers: headers }
+
+    let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
+    let(:user) { create(:user) }
+
+    it 'returns a user and status 200' do
+      subject
+
+      expect(response).to have_http_status(200)
+      expect(json_response['user']).to be_a(Hash)
+      expect(json_response['user']['id']).to be_present
+      expect(json_response['user']['email']).to be_present
+      expect(json_response['user']['username']).to be_present
+      expect(json_response['user']['first_name']).to be_present
+      expect(json_response['user']['last_name']).to be_present
+      expect(json_response['user']['password']).not_to be_present
+      expect(json_response['user']['password_digest']).not_to be_present
+    end
+  end
+
   describe 'POST /users' do
     subject(:request) { post '/users', params: params }
 

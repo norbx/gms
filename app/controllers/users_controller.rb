@@ -7,6 +7,10 @@ class UsersController < ApplicationController
     render json: users, adapter: :json
   end
 
+  def show
+    render json: user, adapter: :json
+  end
+
   def create
     user = User.new(user_params)
 
@@ -20,6 +24,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def user
+    @user = User.find(params[:id])
+  end
 
   def users
     @users = User.all
