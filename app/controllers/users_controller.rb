@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate, only: :create
 
   def index
-    render json: { users: User.all.to_a }
+    render json: users, adapter: :json
   end
 
   def create
@@ -20,6 +20,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def users
+    @users = User.all
+  end
 
   def user_params
     params.require(:user).permit(:username, :password, :email, :first_name, :last_name)
