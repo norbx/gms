@@ -16,7 +16,7 @@ RSpec.describe UsersController, type: :request do
       expect(json_response['user']).to be_a(Hash)
       expect(json_response['user']['id']).to be_present
       expect(json_response['user']['email']).to be_present
-      expect(json_response['user']['username']).to be_present
+      expect(json_response['user']['name']).to be_present
       expect(json_response['user']['first_name']).to be_present
       expect(json_response['user']['last_name']).to be_present
       expect(json_response['user']['password']).not_to be_present
@@ -31,7 +31,7 @@ RSpec.describe UsersController, type: :request do
       {
         user: {
           email: 'test@mail.com',
-          username: 'test',
+          name: 'test',
           password: 'hejhooo',
           first_name: 'test',
           last_name: 'test'
@@ -55,13 +55,13 @@ RSpec.describe UsersController, type: :request do
       end
     end
 
-    context 'with blank username' do
-      before { params[:user][:username] = '' }
+    context 'with blank name' do
+      before { params[:user][:name] = '' }
 
       it 'creates no user and returns error response' do
         expect { request }.not_to change(User, :count)
         expect(response).to have_http_status(422)
-        expect(response.body).to include('Username can\'t be blank')
+        expect(response.body).to include('Name can\'t be blank')
       end
     end
 
