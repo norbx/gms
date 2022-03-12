@@ -6,4 +6,8 @@ Rails.application.routes.draw do
   scope :users do
     post :sessions, to: 'user_sessions#create', path: 'sign_in'
   end
+
+  scope :bands do
+    post :sessions, to: 'band_sessions#create', path: 'sign_in'
+  end
 end
