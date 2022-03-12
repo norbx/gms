@@ -11,7 +11,7 @@ class JwtToken
 
     def decode_token(token)
       JWT.decode(token, SECRET_KEY)
-    rescue JWT::VerificationError, JWT::ExpiredSignature
+    rescue JWT::VerificationError, JWT::ExpiredSignature, JWT::DecodeError
       nil
     end
 

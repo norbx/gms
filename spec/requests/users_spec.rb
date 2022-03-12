@@ -51,7 +51,17 @@ RSpec.describe UsersController, type: :request do
       it 'creates no user and returns error response' do
         expect { request }.not_to change(User, :count)
         expect(response).to have_http_status(422)
-        expect(response.body).to include('Password can\'t be blank', 'Password is too short (minimum is 6 characters)')
+        expect(response.body).to include('Password can\'t be blank')
+      end
+    end
+
+    context 'with password length less than 6' do
+      before { params[:user][:password] = '1234' }
+
+      it 'creates no user and returns error response' do
+        expect { request }.not_to change(User, :count)
+        expect(response).to have_http_status(422)
+        expect(response.body).to include('Password is too short (minimum is 6 characters)')
       end
     end
 

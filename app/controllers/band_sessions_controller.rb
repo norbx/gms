@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class BandSessionsController < ApplicationController
-  skip_before_action :authenticate, only: :create
-
   def create
     if band&.authenticate(band_params[:password])
       render json: { token: token }, status: :ok
