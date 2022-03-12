@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe SessionsController, type: :request do
+RSpec.describe UserSessionsController, type: :request do
   describe 'POST /create' do
     subject(:request) { post '/users/sign_in', params: params }
 
