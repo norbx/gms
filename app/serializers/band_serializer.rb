@@ -2,7 +2,6 @@
 
 class BandSerializer < ActiveModel::Serializer
   attribute :id
-  attribute :email
   attribute :name
   attribute :phone_number
   attribute :contact_name

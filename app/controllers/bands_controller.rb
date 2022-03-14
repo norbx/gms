@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class BandsController < ApplicationController
-  before_action :authenticate_band, only: %i[update]
+  before_action :authenticate, only: :update
 
   def index
     render json: Band.all, adapter: :json, root: 'bands'
@@ -15,9 +15,7 @@ class BandsController < ApplicationController
     band = Band.new(band_params)
 
     if band.save
-      token = JwtToken.generate_token(band)
-
-      render json: { token: token }, status: :created
+      render json: band, status: :created
     else
       render json: band.errors.full_messages, status: :unprocessable_entity
     end
@@ -38,6 +36,6 @@ class BandsController < ApplicationController
   end
 
   def band_params
-    params.require(:band).permit(:name, :password, :email, :contact_name, :phone_number, :description, :social_links)
+    params.require(:band).permit(:name, :contact_name, :phone_number, :description, :social_links)
   end
 end

@@ -12,14 +12,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_220_311_214_101) do
+ActiveRecord::Schema.define(version: 20_220_314_194_727) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
   create_table 'bands', force: :cascade do |t|
     t.string 'name', null: false
-    t.string 'email', null: false
-    t.string 'password_digest', null: false
     t.string 'contact_name'
     t.string 'phone_number'
     t.text 'description'

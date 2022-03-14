@@ -1,3 +1,5 @@
 # frozen_string_literal: true
 
-class Band < Role; end
+class Band < ApplicationRecord
+  validates :name, presence: true
+end

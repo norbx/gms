@@ -3,8 +3,6 @@
 FactoryBot.define do
   factory :band do
     name { 'Some band' }
-    email { 'someband@email.com' }
-    password { 'password' }
     contact_name { 'Some contact' }
     phone_number { '+1 011 233 11' }
     description { 'Some verbose description of how fancy this band is.' }

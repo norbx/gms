@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :authenticate_user, except: :create
+  before_action :authenticate, except: :create
 
   def index
     render json: users, adapter: :json

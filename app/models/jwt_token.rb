@@ -5,8 +5,8 @@ class JwtToken
   SECRET_KEY = Rails.application.secret_key_base
 
   class << self
-    def generate_token(role)
-      JWT.encode(payload(role), SECRET_KEY)
+    def generate_token(user)
+      JWT.encode(payload(user), SECRET_KEY)
     end
 
     def decode_token(token)
@@ -17,10 +17,10 @@ class JwtToken
 
     private
 
-    def payload(role)
+    def payload(user)
       {
         exp: EXPIRY_DATE,
-        email: role.email,
+        email: user.email,
         iat: Time.now.to_i
       }
     end
