@@ -43,6 +43,48 @@ RSpec.describe BandsController, type: :request do
     end
   end
 
+  describe 'GET /users/:id/bands' do
+    subject { get "/users/#{user.id}/bands", headers: headers }
+
+    let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
+    let(:user) { create(:user) }
+    let(:band1) { create(:band, name: 'The stonks') }
+    let(:band2) { create(:band, name: 'The kicks') }
+
+    before do
+      user.bands << band1
+      user.bands << band2
+    end
+
+    it 'returns a list of user bands' do
+      subject
+
+      expect(response).to have_http_status(200)
+      expect(json_response[:bands]).to be_an(Array)
+      expect(json_response[:bands].size).to eq(2)
+      expect(json_response[:bands].first['name']).to eq(band1.name)
+      expect(json_response[:bands].second['name']).to eq(band2.name)
+    end
+
+    context 'with bands belonging to different user' do
+      let(:other_user) { create(:user, name: 'Carol', email: 'other_mail@mail.com') }
+      let(:band3) { create(:band, name: 'The suits') }
+      let(:band4) { create(:band, name: 'The shags') }
+
+      before { other_user.bands << band3 }
+
+      it 'returns only bands that belong to the user' do
+        subject
+
+        expect(response).to have_http_status(200)
+        expect(json_response[:bands]).to be_an(Array)
+        expect(json_response[:bands].size).to eq(2)
+        expect(json_response[:bands].first['name']).to eq(band1.name)
+        expect(json_response[:bands].second['name']).to eq(band2.name)
+      end
+    end
+  end
+
   describe 'POST /users/:id/bands' do
     subject(:request) { post "/users/#{user.id}/bands", params: params, headers: headers }
 

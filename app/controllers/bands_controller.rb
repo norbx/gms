@@ -7,6 +7,10 @@ class BandsController < ApplicationController
     render json: Band.all, adapter: :json, root: 'bands'
   end
 
+  def user_bands
+    render json: user.bands.all, apdater: :json, root: 'bands'
+  end
+
   def show
     render json: Band.find(params[:id]), adapter: :json, root: 'band'
   end
