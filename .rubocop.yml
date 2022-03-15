@@ -5,6 +5,8 @@ AllCops:
     - config.ru
     - config/**/*
     - bin/**/*
+    - db/schema.rb
+    - db/migrate/**/*.rb
 
 Metrics/BlockLength:
   Exclude:
