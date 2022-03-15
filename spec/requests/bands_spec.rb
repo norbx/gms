@@ -44,8 +44,10 @@ RSpec.describe BandsController, type: :request do
   end
 
   describe 'POST /bands' do
-    subject(:request) { post '/bands', params: params }
+    subject(:request) { post "/users/#{user.id}/bands", params: params, headers: headers }
 
+    let(:user) { create(:user) }
+    let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
     let(:params) do
       {
         band: {
@@ -71,10 +73,20 @@ RSpec.describe BandsController, type: :request do
         expect(response.body).to include('Name can\'t be blank')
       end
     end
+
+    context 'with invalid authorization token' do
+      let(:headers) { { HTTP_AUTHORIZATION: 'Token some_random_token' } }
+
+      it 'returns 403' do
+        subject
+
+        expect(response).to have_http_status(403)
+      end
+    end
   end
 
   describe 'PUT /bands/:id' do
-    subject { put "/bands/#{band.id}", params: params, headers: headers }
+    subject { put "/users/#{user.id}/bands/#{band.id}", params: params, headers: headers }
 
     let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
     let(:user) { create(:user) }

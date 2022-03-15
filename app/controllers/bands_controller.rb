@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class BandsController < ApplicationController
-  before_action :authenticate, only: :update
+  before_action :authenticate, only: %i[create update]
 
   def index
     render json: Band.all, adapter: :json, root: 'bands'
