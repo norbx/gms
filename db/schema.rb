@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_15_104126) do
+ActiveRecord::Schema.define(version: 2022_03_15_141431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2022_03_15_104126) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "bands_users", id: false, force: :cascade do |t|
+  create_table "bands_users", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "band_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2022_03_15_104126) do
     t.string "last_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_musician", default: false, null: false
   end
 
   add_foreign_key "bands_users", "bands"
