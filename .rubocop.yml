@@ -5,12 +5,32 @@ AllCops:
     - config.ru
     - config/**/*
     - bin/**/*
-    - db/schema.rb
-    - db/migrate/**/*.rb
+    - db/**/*.rb
 
 Metrics/BlockLength:
   Exclude:
-    - spec/*/**
+    - spec/*/**.rb
+    - db/**/*.rb
 
 Style/Documentation:
   Enabled: false
+
+Layout/EmptyLinesAroundBlockBody:
+  Exclude:
+    - db/**/*.rb
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - db/**/*.rb
+
+Style/NumericLiterals:
+  Exclude:
+    - db/**/*.rb
+
+Style/StringLiterals:
+  Exclude:
+    - db/**/*.rb
+
+Style/WordArray:
+  Exclude:
+    - db/**/*.rb

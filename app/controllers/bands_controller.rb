@@ -8,31 +8,44 @@ class BandsController < ApplicationController
   end
 
   def show
-    render json: band, adapter: :json, root: 'band'
+    render json: Band.find(params[:id]), adapter: :json, root: 'band'
   end
 
   def create
+    return head :forbidden unless user_verified?
+
     band = Band.new(band_params)
 
     if band.save
-      render json: band, status: :created
+      user.bands << band
+      render json: band, status: :created, root: 'band'
     else
-      render json: band.errors.full_messages, status: :unprocessable_entity
+      render json: band.errors.full_messages, root: 'band', status: :unprocessable_entity
     end
   end
 
   def update
-    if band.update(band_params)
-      render nothing: true, status: :ok
+    return head :forbidden unless user_verified?
+
+    if user_band.update(band_params)
+      head :ok
     else
-      render json: band.errors.full_messages, root: :bands, status: :bad_request
+      render json: user_band.errors.full_messages, root: :bands, status: :bad_request
     end
   end
 
   private
 
-  def band
-    @band = Band.find(params[:id])
+  def user
+    @user = User.find(params[:user_id])
+  end
+
+  def user_verified?
+    user && (user.id == user_token[:user_id])
+  end
+
+  def user_band
+    @user_band = user.bands.find(params[:id])
   end
 
   def band_params

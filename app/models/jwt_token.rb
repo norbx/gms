@@ -19,6 +19,7 @@ class JwtToken
 
     def payload(user)
       {
+        user_id: user.id,
         exp: EXPIRY_DATE,
         email: user.email,
         iat: Time.now.to_i

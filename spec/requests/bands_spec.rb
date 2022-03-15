@@ -43,7 +43,7 @@ RSpec.describe BandsController, type: :request do
     end
   end
 
-  describe 'POST /bands' do
+  describe 'POST /users/:id/bands' do
     subject(:request) { post "/users/#{user.id}/bands", params: params, headers: headers }
 
     let(:user) { create(:user) }
@@ -74,6 +74,17 @@ RSpec.describe BandsController, type: :request do
       end
     end
 
+    context 'when authorized user tries to pass different user_id in url' do
+      let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(some_user)}" } }
+      let(:some_user) { create(:user, name: 'Adam', email: 'adam@mail.com', password: 'password') }
+
+      it 'returns 403' do
+        subject
+
+        expect(response).to have_http_status(403)
+      end
+    end
+
     context 'with invalid authorization token' do
       let(:headers) { { HTTP_AUTHORIZATION: 'Token some_random_token' } }
 
@@ -85,7 +96,7 @@ RSpec.describe BandsController, type: :request do
     end
   end
 
-  describe 'PUT /bands/:id' do
+  describe 'PUT users/:id/bands/:id' do
     subject { put "/users/#{user.id}/bands/#{band.id}", params: params, headers: headers }
 
     let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
@@ -93,8 +104,21 @@ RSpec.describe BandsController, type: :request do
     let(:band) { create(:band, name: 'the stonks', phone_number: nil) }
     let(:params) { { band: { phone_number: '+1 0203 044 11' } } }
 
+    before { user.bands << band }
+
     it 'updates attribute' do
       expect { subject }.to change { band.reload.phone_number }.from(nil).to(params[:band][:phone_number])
+    end
+
+    context 'when authorized user tries to pass different user_id in url' do
+      let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(some_user)}" } }
+      let(:some_user) { create(:user, name: 'Adam', email: 'adam@mail.com', password: 'password') }
+
+      it 'returns 403' do
+        subject
+
+        expect(response).to have_http_status(403)
+      end
     end
 
     context 'with invalid authorization token' do
