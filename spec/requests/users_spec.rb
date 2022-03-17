@@ -43,6 +43,15 @@ RSpec.describe UsersController, type: :request do
       expect { request }.to change(User, :count).by(1)
       expect(response).to have_http_status(201)
       expect(json_response).to have_key(:token)
+      expect(json_response).to have_key(:user)
+      expect(json_response['user']).to be_a(Hash)
+      expect(json_response['user']['id']).to be_present
+      expect(json_response['user']['email']).to be_present
+      expect(json_response['user']['name']).to be_present
+      expect(json_response['user']['first_name']).to be_present
+      expect(json_response['user']['last_name']).to be_present
+      expect(json_response['user']['password']).not_to be_present
+      expect(json_response['user']['password_digest']).not_to be_present
     end
 
     context 'with blank password' do

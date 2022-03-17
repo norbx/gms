@@ -8,4 +8,8 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 6 }, if: :password
 
   has_and_belongs_to_many :bands
+
+  def token
+    JwtToken.generate_token(self)
+  end
 end

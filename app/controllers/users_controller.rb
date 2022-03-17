@@ -15,9 +15,7 @@ class UsersController < ApplicationController
     user = User.new(user_params)
 
     if user.save
-      token = JwtToken.generate_token(user)
-
-      render json: { token: token }, status: :created
+      render json: user, status: :created, serializer: UserWithTokenSerializer, adapter: :attributes
     else
       render json: user.errors.full_messages, status: :unprocessable_entity
     end

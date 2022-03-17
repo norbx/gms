@@ -3,7 +3,7 @@
 class UserSessionsController < ApplicationController
   def create
     if user&.authenticate(user_params[:password])
-      render json: { token: token }, status: :ok
+      render json: user, status: :ok, serializer: UserWithTokenSerializer, adapter: :attributes
     else
       head :forbidden
     end
@@ -16,10 +16,6 @@ class UserSessionsController < ApplicationController
   end
 
   def user
-    User.find_by(email: user_params[:email])
-  end
-
-  def token
-    JwtToken.generate_token(user)
+    @user ||= User.find_by(email: user_params[:email])
   end
 end
