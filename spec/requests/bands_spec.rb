@@ -62,8 +62,7 @@ RSpec.describe BandsController, type: :request do
       expect(response).to have_http_status(200)
       expect(json_response[:bands]).to be_an(Array)
       expect(json_response[:bands].size).to eq(2)
-      expect(json_response[:bands].first['name']).to eq(band1.name)
-      expect(json_response[:bands].second['name']).to eq(band2.name)
+      expect(json_response[:bands].map { _1[:name] }.sort).to match_array([band1.name, band2.name])
     end
 
     context 'with bands belonging to different user' do
@@ -79,8 +78,7 @@ RSpec.describe BandsController, type: :request do
         expect(response).to have_http_status(200)
         expect(json_response[:bands]).to be_an(Array)
         expect(json_response[:bands].size).to eq(2)
-        expect(json_response[:bands].first['name']).to eq(band1.name)
-        expect(json_response[:bands].second['name']).to eq(band2.name)
+        expect(json_response[:bands].map { _1[:name] }.sort).to match_array([band1.name, band2.name])
       end
     end
   end
