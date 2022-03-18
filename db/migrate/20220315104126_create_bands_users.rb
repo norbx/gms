@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateBandsUsers < ActiveRecord::Migration[6.1]
   def change
     create_table :bands_users, id: false do |t|
