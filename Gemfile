@@ -6,10 +6,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.0'
 
 gem 'active_model_serializers', '~> 0.10.13'
-gem 'aws-sdk', '~> 3.1'
+gem 'aws-sdk-s3', '~> 1.113'
 gem 'bcrypt', '~> 3.1', '>= 3.1.16'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
+gem 'image_processing', '~> 1.12', '>= 1.12.2'
 gem 'jwt', '~> 2.3'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
