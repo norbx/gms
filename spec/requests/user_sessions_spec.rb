@@ -38,10 +38,10 @@ RSpec.describe UserSessionsController, type: :request do
     context 'when credentials are invalid' do
       before { params[:user][:password] = 'invalid' }
 
-      it 'returns status 403' do
+      it 'returns status 401' do
         request
 
-        expect(response).to have_http_status(403)
+        expect(response).to have_http_status(401)
       end
     end
   end

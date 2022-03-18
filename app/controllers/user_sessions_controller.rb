@@ -5,7 +5,7 @@ class UserSessionsController < ApplicationController
     if user&.authenticate(user_params[:password])
       render json: user, status: :ok, serializer: UserWithTokenSerializer, adapter: :attributes
     else
-      head :forbidden
+      head :unauthorized
     end
   end
 
