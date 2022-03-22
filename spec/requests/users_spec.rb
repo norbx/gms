@@ -3,6 +3,29 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :request do
+  describe 'GET /users' do
+    subject { get '/users', headers: headers }
+
+    let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
+    let(:user) { create(:user) }
+
+    it 'returns a user and status 200' do
+      subject
+
+      expect(response).to have_http_status(200)
+      expect(json_response['users']).to be_an(Array)
+      expect(json_response['users'][0]['id']).to be_present
+      expect(json_response['users'][0]['email']).to be_present
+      expect(json_response['users'][0]['name']).to be_present
+      expect(json_response['users'][0]['first_name']).to be_present
+      expect(json_response['users'][0]['last_name']).to be_present
+      expect(json_response['users'][0]['password']).not_to be_present
+      expect(json_response['users'][0]['password_digest']).not_to be_present
+    end
+
+    include_examples 'User not signed in'
+  end
+
   describe 'GET /users/:id' do
     subject { get "/users/#{user.id}", headers: headers }
 
@@ -22,6 +45,8 @@ RSpec.describe UsersController, type: :request do
       expect(json_response['user']['password']).not_to be_present
       expect(json_response['user']['password_digest']).not_to be_present
     end
+
+    include_examples 'User not signed in'
   end
 
   describe 'POST /users' do
@@ -112,24 +137,7 @@ RSpec.describe UsersController, type: :request do
       expect(json_response[:avatar_url]).to eq(user.reload.avatar_url)
     end
 
-    context 'with different id given' do
-      let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(create(:user))}" } }
-
-      it 'returns status forbidden' do
-        subject
-
-        expect(response).to have_http_status(403)
-      end
-    end
-
-    context 'when user is not signed_in' do
-      let(:headers) { {} }
-
-      it 'returns status unauthorized' do
-        subject
-
-        expect(response).to have_http_status(401)
-      end
-    end
+    include_examples 'User not signed in'
+    include_examples 'User passess different user_id'
   end
 end

@@ -114,26 +114,8 @@ RSpec.describe BandsController, type: :request do
       end
     end
 
-    context 'when authorized user tries to pass different user_id in url' do
-      let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(some_user)}" } }
-      let(:some_user) { create(:user, name: 'Adam', email: 'adam@mail.com', password: 'password') }
-
-      it 'returns 403' do
-        subject
-
-        expect(response).to have_http_status(403)
-      end
-    end
-
-    context 'with invalid authorization token' do
-      let(:headers) { { HTTP_AUTHORIZATION: 'Token some_random_token' } }
-
-      it 'returns 403' do
-        subject
-
-        expect(response).to have_http_status(403)
-      end
-    end
+    include_examples 'User not signed in'
+    include_examples 'User passess different user_id'
   end
 
   describe 'PUT users/:id/bands/:id' do
@@ -150,25 +132,7 @@ RSpec.describe BandsController, type: :request do
       expect { subject }.to change { band.reload.phone_number }.from(nil).to(params[:band][:phone_number])
     end
 
-    context 'when authorized user tries to pass different user_id in url' do
-      let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(some_user)}" } }
-      let(:some_user) { create(:user, name: 'Adam', email: 'adam@mail.com', password: 'password') }
-
-      it 'returns 403' do
-        subject
-
-        expect(response).to have_http_status(403)
-      end
-    end
-
-    context 'with invalid authorization token' do
-      let(:headers) { { HTTP_AUTHORIZATION: 'Token some_random_token' } }
-
-      it 'returns 403' do
-        subject
-
-        expect(response).to have_http_status(403)
-      end
-    end
+    include_examples 'User not signed in'
+    include_examples 'User passess different user_id'
   end
 end

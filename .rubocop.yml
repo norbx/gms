@@ -10,6 +10,14 @@ Metrics/BlockLength:
     - spec/*/**.rb
     - db/**/*.rb
 
+Metrics/AbcSize:
+  Exclude:
+    - db/**/*
+
+Metrics/MethodLength:
+  Exclude:
+    - db/**/*
+
 Style/Documentation:
   Enabled: false
 
