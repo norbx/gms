@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_and_belongs_to_many :bands
   has_one_attached :avatar
 
+  mount_uploader :avatar, AvatarUploader
+
   def token
     JwtToken.generate_token(self)
   end

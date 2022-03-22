@@ -94,4 +94,42 @@ RSpec.describe UsersController, type: :request do
       end
     end
   end
+
+  describe 'POST /users/:id/avatar' do
+    subject { post "/users/#{user.id}/avatar", params: params, headers: headers }
+
+    let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
+    let(:params) do
+      { avatar: Rack::Test::UploadedFile.new("#{Rails.root}/spec/fixtures/avatars/avatar.jpg", 'image/jpeg') }
+    end
+
+    let(:user) { create(:user) }
+
+    it 'attaches the avatar to a user' do
+      subject
+
+      expect(response).to have_http_status(201)
+      expect(json_response[:avatar_url]).to eq(user.reload.avatar_url)
+    end
+
+    context 'with different id given' do
+      let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(create(:user))}" } }
+
+      it 'returns status forbidden' do
+        subject
+
+        expect(response).to have_http_status(403)
+      end
+    end
+
+    context 'when user is not signed_in' do
+      let(:headers) { {} }
+
+      it 'returns status unauthorized' do
+        subject
+
+        expect(response).to have_http_status(401)
+      end
+    end
+  end
 end

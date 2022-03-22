@@ -1,0 +1,20 @@
+development:
+  cloud_name: "codepirates"
+  api_key: "324182254615516"
+  api_secret: "8Ned0W1QKgyx1ZNMJtM9ruOI5xo"
+  secure: true
+  cdn_subdomain: true
+
+test:
+  cloud_name: "codepirates"
+  api_key: "324182254615516"
+  api_secret: "8Ned0W1QKgyx1ZNMJtM9ruOI5xo"
+  secure: true
+  cdn_subdomain: true
+
+production:
+  cloud_name: "codepirates"
+  api_key: "324182254615516"
+  api_secret: "8Ned0W1QKgyx1ZNMJtM9ruOI5xo"
+  secure: true
+  cdn_subdomain: true

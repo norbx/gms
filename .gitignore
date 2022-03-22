@@ -31,3 +31,6 @@
 
 # Env file
 .env
+
+# Do not push /public dir to remote
+/public/**/*

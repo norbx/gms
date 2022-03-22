@@ -13,8 +13,8 @@ class ApplicationController < ActionController::API
     end
   end
 
-  def user_token
-    @decoded_token[0].with_indifferent_access
+  def verify_user
+    head :forbidden unless user && (user.id == user_token[:user_id])
   end
 
   private
@@ -25,6 +25,10 @@ class ApplicationController < ActionController::API
 
   def token_not_expired(expiration_date)
     expiration_date > Time.zone.now.to_i
+  end
+
+  def user_token
+    @decoded_token[0].with_indifferent_access
   end
 
   def decode_token(token)

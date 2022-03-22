@@ -2,6 +2,7 @@
 
 class BandsController < ApplicationController
   before_action :authenticate, only: %i[create update]
+  before_action :verify_user, only: %i[create update]
 
   def index
     render json: Band.all, adapter: :json, root: 'bands'
@@ -16,8 +17,6 @@ class BandsController < ApplicationController
   end
 
   def create
-    return head :forbidden unless user_verified?
-
     band = Band.new(band_params)
 
     if band.save
@@ -29,8 +28,6 @@ class BandsController < ApplicationController
   end
 
   def update
-    return head :forbidden unless user_verified?
-
     if user_band.update(band_params)
       head :ok
     else
@@ -42,10 +39,6 @@ class BandsController < ApplicationController
 
   def user
     @user = User.find(params[:user_id])
-  end
-
-  def user_verified?
-    user && (user.id == user_token[:user_id])
   end
 
   def user_band

@@ -3,9 +3,7 @@ AllCops:
   NewCops: enable
   Exclude:
     - config.ru
-    - config/**/*
     - bin/**/*
-    - db/**/*.rb
 
 Metrics/BlockLength:
   Exclude:

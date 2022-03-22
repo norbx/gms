@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :authenticate, except: :create
+  before_action :authenticate, only: %i[index show upload_avatar]
+  before_action :verify_user, only: :upload_avatar
 
   def index
     render json: users, adapter: :json
@@ -21,6 +22,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def upload_avatar
+    if user.update(user_avatar)
+      render json: { avatar_url: user.avatar_url }, status: :created
+    else
+      render json: user.errors.full_messages, status: :bad_request
+    end
+  end
+
   private
 
   def user
@@ -33,5 +42,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :password, :email, :first_name, :last_name)
+  end
+
+  def user_avatar
+    params.permit(:id, :avatar)
   end
 end
