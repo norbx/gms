@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   end
 
   resources :bands, only: %i[index show]
+  resources :tags, only: %i[index show]
 
   scope :users do
     post :sessions, to: 'user_sessions#create', path: 'sign_in'
