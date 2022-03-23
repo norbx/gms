@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class BandsController < ApplicationController
-  before_action :authenticate, only: %i[create update]
-  before_action :verify_user, only: %i[create update]
+  before_action :authenticate, only: %i[create update deactivation]
+  before_action :verify_user, only: %i[create update deactivation]
 
   def index
     render json: Band.all, adapter: :json, root: 'bands'
@@ -29,6 +29,14 @@ class BandsController < ApplicationController
 
   def update
     if user_band.update(band_params)
+      head :ok
+    else
+      render json: user_band.errors.full_messages, root: :bands, status: :bad_request
+    end
+  end
+
+  def deactivation
+    if user_band.update(active: false)
       head :ok
     else
       render json: user_band.errors.full_messages, root: :bands, status: :bad_request

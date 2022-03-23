@@ -7,4 +7,5 @@ class BandSerializer < ActiveModel::Serializer
   attribute :contact_name
   attribute :description
   attribute :social_links
+  attribute :active
 end
