@@ -182,4 +182,29 @@ RSpec.describe BandsController, type: :request do
     include_examples 'User not signed in'
     include_examples 'User passess different user_id'
   end
+
+  describe 'PUT users/:id/bands/:id/activation' do
+    subject { put "/users/#{user.id}/bands/#{band.id}/activation", params: params, headers: headers }
+
+    let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
+    let(:params) { {} }
+    let(:user) { create(:user) }
+    let(:band) { create(:band, active: false) }
+
+    before { user.bands << band }
+
+    it 'returns status ok' do
+      subject
+
+      expect(response).to have_http_status(200)
+    end
+
+    it 'activates the band for a given user' do
+      expect { subject }.to change { user.bands.active.count }.from(0).to(1)
+                                                              .and change { band.reload.active }.from(false).to(true)
+    end
+
+    include_examples 'User not signed in'
+    include_examples 'User passess different user_id'
+  end
 end
