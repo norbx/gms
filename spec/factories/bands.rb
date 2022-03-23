@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :band do
-    name { 'Some band' }
+    name { Faker::Book.unique.title }
     contact_name { 'Some contact' }
     phone_number { '+1 011 233 11' }
     description { 'Some verbose description of how fancy this band is.' }

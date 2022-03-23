@@ -5,11 +5,11 @@ class BandsController < ApplicationController
   before_action :verify_user, only: %i[create update deactivation]
 
   def index
-    render json: Band.all, adapter: :json, root: 'bands'
+    render json: Band.active, adapter: :json, root: 'bands'
   end
 
   def user_bands
-    render json: user.bands.all, apdater: :json, root: 'bands'
+    render json: user.bands.active, apdater: :json, root: 'bands'
   end
 
   def show

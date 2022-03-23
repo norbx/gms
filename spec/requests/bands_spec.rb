@@ -22,6 +22,15 @@ RSpec.describe BandsController, type: :request do
       expect(json_response['bands'][0]['description']).to be_present
       expect(json_response['bands'][0]['social_links']).to be_present
     end
+
+    it 'returns only active bands' do
+      create(:band, active: false)
+      create(:band)
+
+      subject
+
+      expect(json_response[:bands].count).to eq(2)
+    end
   end
 
   describe 'GET /bands/:id' do
@@ -65,10 +74,19 @@ RSpec.describe BandsController, type: :request do
       expect(json_response[:bands].map { _1[:name] }.sort).to match_array([band1.name, band2.name])
     end
 
+    it 'returns only active bands' do
+      user.bands << create(:band, active: false)
+      user.bands << create(:band)
+
+      subject
+
+      expect(json_response[:bands].count).to eq(3)
+    end
+
     context 'with bands belonging to different user' do
-      let(:other_user) { create(:user, name: 'Carol', email: 'other_mail@mail.com') }
-      let(:band3) { create(:band, name: 'The suits') }
-      let(:band4) { create(:band, name: 'The shags') }
+      let(:other_user) { create(:user) }
+      let(:band3) { create(:band) }
+      let(:band4) { create(:band) }
 
       before { other_user.bands << band3 }
 
