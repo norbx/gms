@@ -6,4 +6,5 @@ class UserSerializer < ActiveModel::Serializer
   attribute :name
   attribute :first_name
   attribute :last_name
+  attribute :is_musician
 end

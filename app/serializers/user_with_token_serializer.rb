@@ -8,7 +8,8 @@ class UserWithTokenSerializer < ActiveModel::Serializer
       email: object.email,
       name: object.name,
       first_name: object.first_name,
-      last_name: object.last_name
+      last_name: object.last_name,
+      is_musician: object.is_musician
     }
   end
 end

@@ -19,6 +19,7 @@ RSpec.describe UsersController, type: :request do
       expect(json_response['users'][0]['name']).to be_present
       expect(json_response['users'][0]['first_name']).to be_present
       expect(json_response['users'][0]['last_name']).to be_present
+      expect(json_response['users'][0]['is_musician']).not_to be_nil
       expect(json_response['users'][0]['password']).not_to be_present
       expect(json_response['users'][0]['password_digest']).not_to be_present
     end
@@ -42,6 +43,7 @@ RSpec.describe UsersController, type: :request do
       expect(json_response['user']['name']).to be_present
       expect(json_response['user']['first_name']).to be_present
       expect(json_response['user']['last_name']).to be_present
+      expect(json_response['user']['is_musician']).not_to be_nil
       expect(json_response['user']['password']).not_to be_present
       expect(json_response['user']['password_digest']).not_to be_present
     end
@@ -74,7 +76,8 @@ RSpec.describe UsersController, type: :request do
       expect(json_response['user']['email']).to be_present
       expect(json_response['user']['name']).to be_present
       expect(json_response['user']['first_name']).to be_present
-      expect(json_response['user']['last_name']).to be_present
+      expect(json_response['user']['last_name']).not_to be_nil
+      expect(json_response['user']['is_musician']).not_to be_nil
       expect(json_response['user']['password']).not_to be_present
       expect(json_response['user']['password_digest']).not_to be_present
     end
