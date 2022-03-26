@@ -114,7 +114,7 @@ RSpec.describe BandsController, type: :request do
   end
 
   describe 'POST /users/:id/bands' do
-    subject(:request) { post "/users/#{user.id}/bands", params: params, headers: headers }
+    subject(:subject) { post "/users/#{user.id}/bands", params: params, headers: headers }
 
     let(:user) { create(:user) }
     let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
@@ -122,23 +122,93 @@ RSpec.describe BandsController, type: :request do
       {
         band: {
           name: 'test',
-          first_name: 'test',
-          last_name: 'test'
+          description: 'test',
+          contact_name: 'test',
+          phone_number: 'number',
+          social_links: 'sociallink.com',
+          tags_attributes: [
+            {
+              name: 'Jazz'
+            },
+            {
+              name: 'Rap'
+            },
+            {
+              name: 'Disco'
+            }
+          ]
         }
       }
     end
 
-    it 'creates a band and returns successful response' do
-      expect { request }.to change(Band, :count).by(1)
+    it 'creates a band with tags and returns successful response' do
+      expect { subject }.to change(Band, :count).from(0).to(1)
+      expect(Band.last.tags.count).to eq(3)
       expect(response).to have_http_status(201)
       expect(json_response).to be_a(Hash)
+      expect(json_response[:band][:id]).to be_present
+      expect(json_response[:band][:name]).to be_present
+      expect(json_response[:band][:phone_number]).to be_present
+      expect(json_response[:band][:contact_name]).to be_present
+      expect(json_response[:band][:description]).to be_present
+      expect(json_response[:band][:social_links]).to be_present
+      expect(json_response[:band][:active]).to be_present
+      expect(json_response[:band][:tags]).to be_an(Array)
+      expect(json_response[:band][:tags][0]['id']).to be_present
+      expect(json_response[:band][:tags][0]['name']).to be_present
     end
 
-    context 'with blank name' do
+    context 'with one of the tags already existing' do
+      before { create(:tag, name: 'Jazz') }
+
+      it 'creates a band with 3 associated tags..' do
+        expect { subject }.to change(Band, :count).by(1)
+        expect(Band.last.tags.count).to eq(3)
+      end
+
+      it '..but does not create already exsisting tag' do
+        expect { subject }.to change(Tag, :count).from(1).to(3)
+      end
+    end
+
+    context 'when one of the tags is invalid' do
+      let(:params) do
+        {
+          band: {
+            name: 'test',
+            description: 'test',
+            contact_name: 'test',
+            phone_number: 'number',
+            social_links: 'sociallink.com',
+            tags_attributes: [
+              {
+                name: 'Some--invalid  name'
+              },
+              {
+                name: 'Rap'
+              },
+              {
+                name: 'Disco'
+              }
+            ]
+          }
+        }
+      end
+
+      it 'returns 422, does not create a band and tags' do
+        subject
+
+        expect(response).to have_http_status(422)
+        expect(Tag.count).to eq(0)
+        expect(Band.count).to eq(0)
+      end
+    end
+
+    context 'with blank band name' do
       before { params[:band][:name] = '' }
 
       it 'creates no band and returns error response' do
-        expect { request }.not_to change(Band, :count)
+        expect { subject }.not_to change(Band, :count)
         expect(response).to have_http_status(422)
         expect(response.body).to include('Name can\'t be blank')
       end
