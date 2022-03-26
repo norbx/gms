@@ -1,6 +1,6 @@
 production:
-  cloud_name: "codepirates"
-  api_key: "324182254615516"
-  api_secret: "8Ned0W1QKgyx1ZNMJtM9ruOI5xo"
+  cloud_name: <%= ENV['CLOUDINARY_CLOUD_NAME'] %>
+  api_key: <%= ENV['CLOUDINARY_API_KEY'] %>
+  api_secret: <%= ENV['CLOUDINARY_API_SECRET'] %>
   secure: true
   cdn_subdomain: true
