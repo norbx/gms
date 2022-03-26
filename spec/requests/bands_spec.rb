@@ -8,7 +8,9 @@ RSpec.describe BandsController, type: :request do
 
     let(:band) { create(:band) }
 
-    before { band }
+    before do
+      band.tags << create(:tag)
+    end
 
     it 'returns a band and status 200' do
       subject
@@ -21,6 +23,9 @@ RSpec.describe BandsController, type: :request do
       expect(json_response['bands'][0]['phone_number']).to be_present
       expect(json_response['bands'][0]['description']).to be_present
       expect(json_response['bands'][0]['social_links']).to be_present
+      expect(json_response['bands'][0]['tags']).to be_an(Array)
+      expect(json_response['bands'][0]['tags'][0]['id']).to be_present
+      expect(json_response['bands'][0]['tags'][0]['name']).to be_present
     end
 
     it 'returns only active bands' do
@@ -38,6 +43,10 @@ RSpec.describe BandsController, type: :request do
 
     let(:band) { create(:band) }
 
+    before do
+      band.tags << create(:tag)
+    end
+
     it 'returns a band and status 200' do
       subject
 
@@ -49,6 +58,9 @@ RSpec.describe BandsController, type: :request do
       expect(json_response['band']['phone_number']).to be_present
       expect(json_response['band']['description']).to be_present
       expect(json_response['band']['social_links']).to be_present
+      expect(json_response['band']['tags']).to be_an(Array)
+      expect(json_response['band']['tags'][0]['id']).to be_present
+      expect(json_response['band']['tags'][0]['name']).to be_present
     end
   end
 

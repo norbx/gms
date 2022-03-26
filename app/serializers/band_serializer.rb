@@ -8,4 +8,6 @@ class BandSerializer < ActiveModel::Serializer
   attribute :description
   attribute :social_links
   attribute :active
+
+  has_many :tags
 end
