@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
 class BandsController < ApplicationController
-  before_action :authenticate, only: %i[create update deactivation activation]
-  before_action :verify_user, only: %i[create update deactivation activation]
+  before_action :authenticate, only: %i[user_bands create update deactivation activation upload_images]
 
   def index
     render json: Band.active, adapter: :json, root: 'bands'
   end
 
   def user_bands
-    render json: user.bands.active, apdater: :json, root: 'bands'
+    render json: current_user.bands.active, apdater: :json, root: 'bands'
   end
 
   def show
@@ -20,7 +19,7 @@ class BandsController < ApplicationController
     band = Band.new(band_params)
 
     if band.save
-      user.bands << band
+      current_user.bands << band
       render json: band, status: :created, root: 'band'
     else
       render json: band.errors.full_messages, root: 'band', status: :unprocessable_entity
@@ -57,8 +56,8 @@ class BandsController < ApplicationController
     @user = User.find(params[:user_id])
   end
 
-  def user_band
-    @user_band = user.bands.find(params[:id])
+  def band
+    @band = current_user.bands.find(params[:id])
   end
 
   def band_params

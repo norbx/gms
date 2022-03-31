@@ -13,8 +13,8 @@ class ApplicationController < ActionController::API
     end
   end
 
-  def verify_user
-    head :forbidden unless user && (user.id == user_token[:user_id])
+  def current_user
+    @current_user ||= User.find(user_token[:user_id])
   end
 
   private

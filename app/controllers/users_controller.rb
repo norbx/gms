@@ -2,7 +2,6 @@
 
 class UsersController < ApplicationController
   before_action :authenticate, only: %i[index show upload_avatar]
-  before_action :verify_user, only: :upload_avatar
 
   def index
     render json: users, adapter: :json

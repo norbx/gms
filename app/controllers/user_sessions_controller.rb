@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UserSessionsController < ApplicationController
+class UserSessionsController < ActionController::API
   def create
     if user&.authenticate(user_params[:password])
       render json: user, status: :ok, serializer: UserWithTokenSerializer, adapter: :attributes
