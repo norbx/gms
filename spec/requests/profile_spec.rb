@@ -154,7 +154,6 @@ RSpec.describe 'Profile actions' do
     end
 
     include_examples 'User not signed in'
-    include_examples 'User passess different user_id'
   end
 
   describe 'PUT profile/bands/:id' do
@@ -172,7 +171,6 @@ RSpec.describe 'Profile actions' do
     end
 
     include_examples 'User not signed in'
-    include_examples 'User passess different user_id'
   end
 
   describe 'PUT profile/bands/:id/deactivation' do
@@ -201,7 +199,6 @@ RSpec.describe 'Profile actions' do
     end
 
     include_examples 'User not signed in'
-    include_examples 'User passess different user_id'
   end
 
   describe 'PUT profile/bands/:id/activation' do
@@ -226,6 +223,5 @@ RSpec.describe 'Profile actions' do
     end
 
     include_examples 'User not signed in'
-    include_examples 'User passess different user_id'
   end
 end
