@@ -7,8 +7,6 @@ Rails.application.routes.draw do
       put 'activation', on: :member
     end
     get '/bands', to: 'bands#user_bands'
-
-    post '/avatar', to: 'users#upload_avatar', on: :member
   end
 
   resources :bands, only: %i[index show]

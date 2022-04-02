@@ -8,9 +8,6 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 6 }, if: :password
 
   has_and_belongs_to_many :bands
-  has_one_attached :avatar
-
-  mount_uploader :avatar, AvatarUploader
 
   def token
     JwtToken.generate_token(self)

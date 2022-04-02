@@ -122,25 +122,4 @@ RSpec.describe UsersController, type: :request do
       end
     end
   end
-
-  describe 'POST /users/:id/avatar' do
-    subject { post "/users/#{user.id}/avatar", params: params, headers: headers }
-
-    let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
-    let(:params) do
-      { avatar: Rack::Test::UploadedFile.new("#{Rails.root}/spec/fixtures/avatars/avatar.jpg", 'image/jpeg') }
-    end
-
-    let(:user) { create(:user) }
-
-    it 'attaches the avatar to a user' do
-      subject
-
-      expect(response).to have_http_status(201)
-      expect(json_response[:avatar_url]).to eq(user.reload.avatar_url)
-    end
-
-    include_examples 'User not signed in'
-    include_examples 'User passess different user_id'
-  end
 end
