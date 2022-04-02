@@ -5,22 +5,25 @@ class ApplicationController < ActionController::API
 
   def authenticate
     authenticate_or_request_with_http_token do |token, _options|
-      @decoded_token = decode_token(token)
-      return head :forbidden if @decoded_token.nil?
+      @token = token
+      return head :forbidden unless user_valid?
 
-      params = @decoded_token[0].with_indifferent_access
-      user_exists(params[:email]) && token_not_expired(params[:exp])
+      current_user
     end
   end
 
   def current_user
+    return unless decoded_token.present?
+
     @current_user ||= User.find(user_token[:user_id])
   end
 
   private
 
-  def user_exists(user_email)
-    User.find_by(email: user_email)
+  attr_reader :token
+
+  def user_valid?
+    decoded_token.present? && current_user.present? && token_not_expired(user_token[:exp])
   end
 
   def token_not_expired(expiration_date)
@@ -31,7 +34,7 @@ class ApplicationController < ActionController::API
     @decoded_token[0].with_indifferent_access
   end
 
-  def decode_token(token)
-    JwtToken.decode_token(token)
+  def decoded_token
+    @decoded_token ||= JwtToken.decode_token(token)
   end
 end

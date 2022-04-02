@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe UserSessionsController, type: :request do
-  describe 'POST /create' do
-    subject(:request) { post '/users/sign_in', params: params }
+  describe 'POST /profile/sign_in' do
+    subject(:request) { post '/profile/sign_in', params: params }
 
     let(:user) { create(:user, email: 'test@mail.com', password: 'password') }
 

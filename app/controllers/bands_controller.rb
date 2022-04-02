@@ -27,26 +27,26 @@ class BandsController < ApplicationController
   end
 
   def update
-    if user_band.update(band_params)
+    if band.update(band_params)
       head :ok
     else
-      render json: user_band.errors.full_messages, root: :bands, status: :bad_request
+      render json: band.errors.full_messages, root: :bands, status: :bad_request
     end
   end
 
   def deactivation
-    if user_band.update(active: false)
+    if band.update(active: false)
       head :ok
     else
-      render json: user_band.errors.full_messages, root: :bands, status: :bad_request
+      render json: band.errors.full_messages, root: :bands, status: :bad_request
     end
   end
 
   def activation
-    if user_band.update(active: true)
+    if band.update(active: true)
       head :ok
     else
-      render json: user_band.errors.full_messages, root: :bands, status: :bad_request
+      render json: band.errors.full_messages, root: :bands, status: :bad_request
     end
   end
 
