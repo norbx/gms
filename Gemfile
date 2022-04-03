@@ -17,6 +17,7 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'rack-cors', '~> 1.1', '>= 1.1.1'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
+gem 'rollbar', '~> 3.3'
 
 group :development do
   gem 'listen', '~> 3.3'
@@ -30,10 +31,6 @@ group :development, :test do
   gem 'pry', '~> 0.14.1'
   gem 'rspec-rails', '~> 5.0', '>= 5.0.1'
   gem 'rubocop', '~> 1.14'
-end
-
-group :production do
-  gem 'rollbar', '~> 3.3'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

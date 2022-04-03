@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   scope :profile do
     post :sessions, to: 'user_sessions#create', path: 'sign_in'
+    put :avatar, to: 'users#upload_avatar'
     resources :bands, only: %i[create update] do
       put 'deactivation', on: :member
       put 'activation', on: :member

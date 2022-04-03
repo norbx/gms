@@ -9,7 +9,8 @@ class UserWithTokenSerializer < ActiveModel::Serializer
       name: object.name,
       first_name: object.first_name,
       last_name: object.last_name,
-      is_musician: object.is_musician
+      is_musician: object.is_musician,
+      avatar_url: object.avatar&.url
     }
   end
 end

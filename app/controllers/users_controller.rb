@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :authenticate, only: %i[index show]
+  before_action :authenticate, only: %i[index show upload_avatar]
 
   def index
-    render json: users, adapter: :json
+    render json: User.all, adapter: :json
   end
 
   def show
@@ -21,17 +21,23 @@ class UsersController < ApplicationController
     end
   end
 
+  def upload_avatar
+    current_user.avatar.attach(user_avatar['avatar'])
+
+    render json: current_user, adapter: :json, status: :created, root: 'user'
+  end
+
   private
 
   def user
     @user = User.find(params[:id])
   end
 
-  def users
-    @users = User.all
-  end
-
   def user_params
     params.require(:user).permit(:name, :password, :email, :first_name, :last_name)
+  end
+
+  def user_avatar
+    params.require(:user).permit(:avatar)
   end
 end
