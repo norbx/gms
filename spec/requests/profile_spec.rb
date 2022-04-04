@@ -92,7 +92,7 @@ RSpec.describe 'Profile actions' do
       expect(json_response[:band][:description]).to be_present
       expect(json_response[:band][:social_links]).to be_present
       expect(json_response[:band][:active]).to be_present
-      expect(json_response[:band][:image_urls]).to be_an(Array)
+      expect(json_response[:band][:images]).to be_an(Array)
       expect(json_response[:band][:tags]).to be_an(Array)
       expect(json_response[:band][:tags][0]['id']).to be_present
       expect(json_response[:band][:tags][0]['name']).to be_present
