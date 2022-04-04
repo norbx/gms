@@ -92,6 +92,7 @@ RSpec.describe 'Profile actions' do
       expect(json_response[:band][:description]).to be_present
       expect(json_response[:band][:social_links]).to be_present
       expect(json_response[:band][:active]).to be_present
+      expect(json_response[:band][:image_urls]).to be_an(Array)
       expect(json_response[:band][:tags]).to be_an(Array)
       expect(json_response[:band][:tags][0]['id']).to be_present
       expect(json_response[:band][:tags][0]['name']).to be_present
@@ -166,10 +167,12 @@ RSpec.describe 'Profile actions' do
 
     before { user.bands << band }
 
-    it 'updates attribute' do
+    it 'updates attribute and returns status 200' do
       expect { subject }.to change { band.reload.phone_number }.from(nil).to(params[:band][:phone_number])
+      expect(response).to have_http_status(200)
     end
 
+    include_examples 'Band response'
     include_examples 'User not signed in'
   end
 
@@ -198,10 +201,11 @@ RSpec.describe 'Profile actions' do
       expect { subject }.not_to(change { user.bands.count })
     end
 
+    include_examples 'Band response'
     include_examples 'User not signed in'
   end
 
-  describe 'PUT profile/bands/:id/activation' do
+  describe 'PUT /profile/bands/:id/activation' do
     subject { put "/profile/bands/#{band.id}/activation", params: params, headers: headers }
 
     let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
@@ -222,6 +226,33 @@ RSpec.describe 'Profile actions' do
                                                               .and change { band.reload.active }.from(false).to(true)
     end
 
+    include_examples 'Band response'
+    include_examples 'User not signed in'
+  end
+
+  describe 'PUT /profile/bands/:id/images' do
+    subject { put "/profile/bands/#{band.id}/images", params: params, headers: headers }
+
+    let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
+    let(:images) do
+      [
+        Rack::Test::UploadedFile.new(Rails.root.join('spec/', 'fixtures/', 'images/', 'avatar.jpg'), 'image/jpeg',
+                                     true),
+        Rack::Test::UploadedFile.new(Rails.root.join('spec/', 'fixtures/', 'images/', 'band.jpg'), 'image/jpeg', true)
+      ]
+    end
+    let(:params) { { band: { images: images } } }
+    let(:user) { create(:user) }
+    let(:band) { create(:band, active: false, images: []) }
+
+    before { user.bands << band }
+
+    it 'creates and attaches images, returns succesful response' do
+      expect { subject }.to change { band.images.count }.from(0).to(2)
+      expect(response).to have_http_status(201)
+    end
+
+    include_examples 'Band response'
     include_examples 'User not signed in'
   end
 end

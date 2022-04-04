@@ -28,7 +28,7 @@ class BandsController < ApplicationController
 
   def update
     if band.update(band_params)
-      head :ok
+      render json: band, root: :band, status: :ok
     else
       render json: band.errors.full_messages, root: :bands, status: :bad_request
     end
@@ -36,7 +36,7 @@ class BandsController < ApplicationController
 
   def deactivation
     if band.update(active: false)
-      head :ok
+      render json: band, root: :band, status: :ok
     else
       render json: band.errors.full_messages, root: :bands, status: :bad_request
     end
@@ -44,10 +44,16 @@ class BandsController < ApplicationController
 
   def activation
     if band.update(active: true)
-      head :ok
+      render json: band, root: :band, status: :ok
     else
       render json: band.errors.full_messages, root: :bands, status: :bad_request
     end
+  end
+
+  def upload_images
+    band.images.attach(band_images['images'])
+
+    render json: band, root: 'band', status: :created
   end
 
   private
@@ -63,5 +69,9 @@ class BandsController < ApplicationController
   def band_params
     params.require(:band).permit(:name, :contact_name, :phone_number, :description, :social_links,
                                  tags_attributes: %i[id name])
+  end
+
+  def band_images
+    params.require(:band).permit({ images: [] })
   end
 end

@@ -47,20 +47,12 @@ RSpec.describe BandsController, type: :request do
       band.tags << create(:tag)
     end
 
-    it 'returns a band and status 200' do
+    it 'returns status 200' do
       subject
 
       expect(response).to have_http_status(200)
-      expect(json_response['band']).to be_a(Hash)
-      expect(json_response['band']['id']).to be_present
-      expect(json_response['band']['name']).to be_present
-      expect(json_response['band']['contact_name']).to be_present
-      expect(json_response['band']['phone_number']).to be_present
-      expect(json_response['band']['description']).to be_present
-      expect(json_response['band']['social_links']).to be_present
-      expect(json_response['band']['tags']).to be_an(Array)
-      expect(json_response['band']['tags'][0]['id']).to be_present
-      expect(json_response['band']['tags'][0]['name']).to be_present
     end
+
+    include_examples 'Band response'
   end
 end

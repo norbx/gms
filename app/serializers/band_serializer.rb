@@ -8,6 +8,9 @@ class BandSerializer < ActiveModel::Serializer
   attribute :description
   attribute :social_links
   attribute :active
+  attribute :image_urls do
+    object.images.respond_to?(:url) ? object.images.map(&:url) : []
+  end
 
   has_many :tags
 end

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :bands, only: %i[create update] do
       put 'deactivation', on: :member
       put 'activation', on: :member
+      put 'images', to: 'bands#upload_images', on: :member
     end
     get '/bands', to: 'bands#user_bands'
   end

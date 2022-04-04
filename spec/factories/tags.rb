@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :tag do
-    name { Faker::Music.unique.genre }
+    name { Faker::Music.genre + Faker::Number.number(digits: 10).to_s }
   end
 end

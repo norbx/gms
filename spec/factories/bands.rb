@@ -7,5 +7,14 @@ FactoryBot.define do
     phone_number { '+1 011 233 11' }
     description { 'Some verbose description of how fancy this band is.' }
     social_links { 'twitter.com/someband, facebook.com/someband' }
+
+    tags { create_list(:tag, 1) }
+    images do
+      [
+        Rack::Test::UploadedFile.new(Rails.root.join('spec/', 'fixtures/', 'images/', 'avatar.jpg'), 'image/jpeg',
+                                     true),
+        Rack::Test::UploadedFile.new(Rails.root.join('spec/', 'fixtures/', 'images/', 'band.jpg'), 'image/jpeg', true)
+      ]
+    end
   end
 end
