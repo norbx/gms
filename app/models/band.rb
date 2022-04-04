@@ -6,7 +6,8 @@ class Band < ApplicationRecord
                      dimension: { width: { in: 800..2400 },
                                   height: { in: 600..1800 },
                                   message: 'should be between 800-2400px in width and 600-1800px in height' },
-                     limit: { max: 5 }
+                     limit: { max: 5 },
+                     size: { less_than: 10.megabytes, message: 'file size should be lesser than 10mb' }
 
   has_and_belongs_to_many :users
   has_and_belongs_to_many :tags
