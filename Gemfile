@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.0'
 
 gem 'active_model_serializers', '~> 0.10.13'
+gem 'active_storage_validations', '~> 0.9.7'
 gem 'aws-sdk-s3', '~> 1.113'
 gem 'bcrypt', '~> 3.1', '>= 3.1.16'
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -18,6 +19,7 @@ gem 'puma', '~> 5.0'
 gem 'rack-cors', '~> 1.1', '>= 1.1.1'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
 gem 'rollbar', '~> 3.3'
+gem 'ruby-vips', '>= 2.1.0'
 
 group :development do
   gem 'listen', '~> 3.3'

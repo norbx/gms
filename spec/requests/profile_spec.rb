@@ -236,9 +236,9 @@ RSpec.describe 'Profile actions' do
     let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
     let(:images) do
       [
-        Rack::Test::UploadedFile.new(Rails.root.join('spec/', 'fixtures/', 'images/', 'avatar.jpg'), 'image/jpeg',
+        Rack::Test::UploadedFile.new(Rails.root.join('spec/', 'fixtures/', 'images/', 'band.jpg'), 'image/jpeg',
                                      true),
-        Rack::Test::UploadedFile.new(Rails.root.join('spec/', 'fixtures/', 'images/', 'band.jpg'), 'image/jpeg', true)
+        Rack::Test::UploadedFile.new(Rails.root.join('spec/', 'fixtures/', 'images/', 'band2.jpg'), 'image/jpeg', true)
       ]
     end
     let(:params) { { band: { images: images } } }
