@@ -2,7 +2,8 @@
 
 class Band < ApplicationRecord
   validates :name, presence: true
-  validates :images, content_type: %i[png jpg jpeg],
+  validates :images, if: :images,
+                     content_type: %i[png jpg jpeg],
                      dimension: { width: { in: 800..2400 },
                                   height: { in: 600..1800 },
                                   message: 'should be between 800-2400px in width and 600-1800px in height' },
