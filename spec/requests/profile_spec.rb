@@ -25,15 +25,6 @@ RSpec.describe 'Profile actions' do
       expect(json_response[:bands].map { _1[:name] }.sort).to match_array([band1.name, band2.name])
     end
 
-    it 'returns only active bands' do
-      user.bands << create(:band, active: false)
-      user.bands << create(:band)
-
-      subject
-
-      expect(json_response[:bands].count).to eq(3)
-    end
-
     context 'with bands belonging to different user' do
       let(:other_user) { create(:user) }
       let(:band3) { create(:band) }

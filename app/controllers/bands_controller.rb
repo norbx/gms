@@ -8,7 +8,7 @@ class BandsController < ApplicationController
   end
 
   def user_bands
-    render json: current_user.bands.active, apdater: :json, root: 'bands'
+    render json: current_user.bands, apdater: :json, root: 'bands'
   end
 
   def show
