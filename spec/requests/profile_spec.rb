@@ -230,8 +230,8 @@ RSpec.describe 'Profile actions' do
     include_examples 'User not signed in'
   end
 
-  describe 'PUT /profile/bands/:id/images' do
-    subject { put "/profile/bands/#{band.id}/images", params: params, headers: headers }
+  describe 'POST /profile/bands/:id/images' do
+    subject { post "/profile/bands/#{band.id}/images", params: params, headers: headers }
 
     let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
     let(:images) do
@@ -250,6 +250,34 @@ RSpec.describe 'Profile actions' do
     it 'creates and attaches images, returns succesful response' do
       expect { subject }.to change { band.images.count }.from(0).to(2)
       expect(response).to have_http_status(201)
+    end
+
+    include_examples 'Band response'
+    include_examples 'User not signed in'
+  end
+
+  describe 'DELETE /profile/bands/:id/images/id' do
+    subject { delete "/profile/bands/#{band.id}/images/#{band.images.first.id}", params: params, headers: headers }
+
+    let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
+    let(:params) { {} }
+    let(:user) { create(:user) }
+    let(:band) { create(:band, active: false, images: []) }
+    let(:images) do
+      [
+        Rack::Test::UploadedFile.new(Rails.root.join('spec/', 'fixtures/', 'images/', 'band.jpg'), 'image/jpeg'),
+        Rack::Test::UploadedFile.new(Rails.root.join('spec/', 'fixtures/', 'images/', 'band2.jpg'), 'image/jpeg')
+      ]
+    end
+
+    before do
+      user.bands << band
+      band.images.attach(images)
+    end
+
+    it 'deletes band image and returns status 200' do
+      expect { subject }.to change { band.images.count }.from(2).to(1)
+      expect(response).to have_http_status(200)
     end
 
     include_examples 'Band response'

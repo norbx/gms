@@ -9,9 +9,10 @@ Rails.application.routes.draw do
     post :sessions, to: 'user_sessions#create', path: 'sign_in'
     put :avatar, to: 'users#upload_avatar'
     resources :bands, only: %i[create update] do
-      put 'deactivation', on: :member
-      put 'activation', on: :member
-      put 'images', to: 'bands#upload_images', on: :member
+      put :deactivation, on: :member
+      put :activation, on: :member
+      post :images, to: 'bands#upload_images', on: :member
+      delete 'images(/:image_id)', to: 'bands#destroy_image', on: :member
     end
     get '/bands', to: 'bands#user_bands'
   end

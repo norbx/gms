@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class BandsController < ApplicationController
-  before_action :authenticate, only: %i[user_bands create update deactivation activation upload_images]
+  before_action :authenticate, only: %i[user_bands create update deactivation activation upload_images destroy_image]
 
   def index
     render json: Band.active, adapter: :json, root: 'bands'
@@ -54,6 +54,12 @@ class BandsController < ApplicationController
     band.images.attach(band_images['images'])
 
     render json: band, root: 'band', status: :created
+  end
+
+  def destroy_image
+    band.images.destroy(params[:image_id])
+
+    render json: band, root: 'band', status: :ok
   end
 
   private
