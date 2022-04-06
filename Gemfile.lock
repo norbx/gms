@@ -281,7 +281,6 @@ DEPENDENCIES
   rollbar (~> 3.3)
   rspec-rails (~> 5.0, >= 5.0.1)
   rubocop (~> 1.14)
-  ruby-vips (>= 2.1.0)
   spring
   tzinfo-data
 
