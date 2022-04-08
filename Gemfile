@@ -12,7 +12,7 @@ gem 'bcrypt', '~> 3.1', '>= 3.1.16'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'cloudinary', '~> 1.22'
 gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
-gem 'elasticsearch', '< 8.0.0'
+gem 'elasticsearch', '7.13.3'
 gem 'image_processing', '~> 1.12', '>= 1.12.2'
 gem 'jwt', '~> 2.3'
 gem 'pg', '~> 1.1'
