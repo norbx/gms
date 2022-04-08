@@ -16,5 +16,11 @@ FactoryBot.define do
         Rack::Test::UploadedFile.new(Rails.root.join('spec/', 'fixtures/', 'images/', 'band2.jpg'), 'image/jpeg', true)
       ]
     end
+
+    trait :reindex do
+      after(:create) do |_band, _evaluator|
+        Band.reindex(refresh: true)
+      end
+    end
   end
 end

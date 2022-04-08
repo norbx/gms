@@ -4,7 +4,7 @@ class BandsController < ApplicationController
   before_action :authenticate, only: %i[user_bands create update deactivation activation upload_images destroy_image]
 
   def index
-    render json: Band.active, adapter: :json, root: 'bands'
+    render json: Band.search(params[:search], operator: 'or', misspellings: { below: 5 }), adapter: :json, root: 'bands'
   end
 
   def user_bands

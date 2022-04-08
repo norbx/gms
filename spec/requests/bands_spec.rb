@@ -4,9 +4,10 @@ require 'rails_helper'
 
 RSpec.describe BandsController, type: :request do
   describe 'GET /bands' do
-    subject { get '/bands' }
+    subject { get '/bands', params: params }
 
-    let(:band) { create(:band) }
+    let(:band) { create(:band, :reindex) }
+    let(:params) { { search: band.name.to_s } }
 
     before do
       band.tags << create(:tag)
@@ -29,12 +30,11 @@ RSpec.describe BandsController, type: :request do
     end
 
     it 'returns only active bands' do
-      create(:band, active: false)
-      create(:band)
+      create(:band, :reindex, active: false)
 
       subject
 
-      expect(json_response[:bands].count).to eq(2)
+      expect(json_response[:bands].count).to eq(1)
     end
   end
 

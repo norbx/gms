@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Band < ApplicationRecord
+  searchkick language: 'polish', callbacks: :async
+
   validates :name, presence: true
   validates :images, if: :images,
                      content_type: %i[png jpg jpeg],
@@ -20,5 +22,9 @@ class Band < ApplicationRecord
 
   def tags_attributes=(tags_array)
     self.tags = tags_array.map { Tag.find_or_initialize_by(_1) }
+  end
+
+  def search_data
+    attributes.merge(tags: tags.map(&:name))
   end
 end
