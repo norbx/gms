@@ -22,7 +22,6 @@ gem 'puma', '~> 5.0'
 gem 'rack-cors', '~> 1.1', '>= 1.1.1'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
 gem 'rollbar', '~> 3.3'
-gem 'ruby-vips', '>= 2.1.0'
 gem 'searchkick', '~> 5.0', '>= 5.0.3'
 
 group :development do
