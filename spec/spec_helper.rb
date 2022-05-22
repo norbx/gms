@@ -99,15 +99,13 @@ RSpec.configure do |config|
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
 
-  config.before(:suite) do
-    Band.reindex
-    Tag.reindex
-    Searchkick.disable_callbacks
-  end
-
   config.around(:each, search: true) do |example|
     Searchkick.callbacks(nil) do
       example.run
     end
+  end
+
+  config.before(:suite) do
+    Chewy.strategy(:bypass)
   end
 end

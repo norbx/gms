@@ -22,9 +22,11 @@ class UsersController < ApplicationController
   end
 
   def upload_avatar
-    current_user.avatar.attach(user_avatar['avatar'])
-
-    render json: current_user, adapter: :json, status: :created, root: 'user'
+    if current_user.avatar.attach(user_avatar['avatar'])
+      render json: current_user, adapter: :json, status: :created, root: 'user'
+    else
+      render json: { errors: current_user.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   private
@@ -38,6 +40,6 @@ class UsersController < ApplicationController
   end
 
   def user_avatar
-    params.require(:user).permit(:avatar)
+    params.permit(:avatar)
   end
 end
