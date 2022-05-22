@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Band < ApplicationRecord
-  searchkick language: 'polish', callbacks: :async
+  update_index('bands') { self }
 
   validates :name, presence: true
   validates :images, if: :images,

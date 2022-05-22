@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Tag < ApplicationRecord
-  searchkick language: 'polish', callbacks: :async
+  update_index('bands') { bands }
 
   before_validation { name.capitalize! }
   validates :name, presence: true, uniqueness: true,

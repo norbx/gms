@@ -4,7 +4,8 @@ class BandsController < ApplicationController
   before_action :authenticate, only: %i[user_bands create update deactivation activation upload_images destroy_image]
 
   def index
-    render json: Band.search(search_params, **search_options), adapter: :json, root: 'bands'
+    @bands = BandsIndex.query(query_string: { query: search_params, default_operator: 'or' }).objects
+    render json: @bands, each_serializer: BandSerializer, root: 'bands'
   end
 
   def user_bands
@@ -79,10 +80,6 @@ class BandsController < ApplicationController
 
   def band_images
     params.require(:band).permit({ images: [] })
-  end
-
-  def search_options
-    { operator: 'or', misspellings: { below: 5 } }
   end
 
   def search_params

@@ -23,7 +23,7 @@ Bundler.require(*Rails.groups)
 
 Dotenv::Railtie.load
 
-HOSTNAME = ENV['HOSTNAME']
+HOSTNAME = ENV.fetch('HOSTNAME', nil)
 
 module Gms
   class Application < Rails::Application
