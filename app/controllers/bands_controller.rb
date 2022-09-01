@@ -79,7 +79,7 @@ class BandsController < ApplicationController
   end
 
   def band_params
-    params.require(:band).permit(:name, :contact_name, :phone_number, :description, :social_links,
+    params.require(:band).permit(:name, :contact_name, :phone_number, :description, social_links: {},
                                  tags_attributes: %i[id name])
   end
 
