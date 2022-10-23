@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class JwtToken
-  EXPIRY_DATE = ENV['TOKEN_EXPIRY_DATE'].to_i.days.from_now.to_i
+  EXPIRY_DAYS = ENV['TOKEN_EXPIRY_DATE'] || 7
   SECRET_KEY = Rails.application.secret_key_base
 
   class << self
@@ -20,7 +20,7 @@ class JwtToken
     def payload(user)
       {
         user_id: user.id,
-        exp: EXPIRY_DATE,
+        exp: EXPIRY_DAYS.to_i.days.from_now.to_i,
         email: user.email,
         iat: Time.now.to_i
       }

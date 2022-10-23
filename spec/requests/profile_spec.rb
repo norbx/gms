@@ -55,7 +55,7 @@ RSpec.describe 'Profile actions' do
           description: 'test',
           contact_name: 'test',
           phone_number: 'number',
-          social_links: 'sociallink.com',
+          social_links: { fb: 'some fb link'},
           tags_attributes: [
             {
               name: 'Jazz'
@@ -238,7 +238,7 @@ RSpec.describe 'Profile actions' do
 
     before { user.bands << band }
 
-    xit 'creates and attaches images, returns succesful response' do
+    it 'creates and attaches images, returns succesful response' do
       expect { subject }.to change { band.reload.images.count }.from(0).to(2)
       expect(response).to have_http_status(201)
     end

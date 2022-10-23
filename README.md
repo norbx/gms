@@ -1,24 +1,8 @@
-# README
+# Setup instructions
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+After bundling and setting up DB, you should follow these steps:
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. Create .env and copy the contents of .env.example
+    a. fill BONSAIL_URL with valid url
+    b. fill TOKEN_EXPIRY_DATE to prefferred value; default is 7
+2. Specs test a proper image uploaded - add band.jpg and band2.jpg to spec/fixtures.

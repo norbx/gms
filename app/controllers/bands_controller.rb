@@ -56,8 +56,8 @@ class BandsController < ApplicationController
       render json: band, root: 'band', status: :created
     else
       render json: {
-        errors: 'Image file should be in 800-2400px in width, 600-1800px height, ' \
-          'lesser than 10mb and of content_type png, jpg or jpeg. Max 5 images per band are allowed.'
+        errors: 'Image file should be lesser than 10mb ' \
+          'and of content_type png, jpg or jpeg. Max 5 images per band are allowed.'
       }
     end
   end
@@ -84,7 +84,7 @@ class BandsController < ApplicationController
   end
 
   def band_images
-    params.permit(:id, { images: [] })
+    params.require(:band).permit(:id, { images: [] })
   end
 
   def search_params

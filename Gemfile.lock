@@ -284,9 +284,6 @@ GEM
     ruby-vips (2.1.4)
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
-    searchkick (5.0.3)
-      activemodel (>= 5.2)
-      hashie
     spring (2.1.1)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
@@ -335,7 +332,6 @@ DEPENDENCIES
   rollbar (~> 3.3)
   rspec-rails (~> 5.0, >= 5.0.1)
   rubocop (~> 1.14)
-  searchkick (~> 5.0, >= 5.0.3)
   spring
   tzinfo-data
 
