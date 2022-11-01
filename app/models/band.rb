@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Band < ApplicationRecord
+  update_index('bands') { self }
+
   has_and_belongs_to_many :users
   has_and_belongs_to_many :tags
   has_many_attached :images

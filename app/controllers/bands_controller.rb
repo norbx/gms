@@ -4,8 +4,8 @@ class BandsController < ApplicationController
   before_action :authenticate, only: %i[user_bands create update deactivation activation upload_images destroy_image]
 
   def index
-    @bands = BandsIndex.query(query_string: { query: search_params, default_operator: 'or' }).objects
-    render json: @bands, each_serializer: BandSerializer, root: 'bands'
+    @bands = BandsIndex.query(query_string: { query: search_params, default_operator: 'and' }).objects
+    render json: @bands, root: 'bands'
   end
 
   def user_bands

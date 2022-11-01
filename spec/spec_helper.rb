@@ -19,6 +19,8 @@
 Dir['./spec/support/**/*.rb'].each { |f| require f }
 
 require 'factory_bot'
+require 'active_support/concern'
+require 'chewy/rspec'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -98,12 +100,6 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
-
-  config.around(:each, search: true) do |example|
-    Searchkick.callbacks(nil) do
-      example.run
-    end
-  end
 
   config.before(:suite) do
     Chewy.strategy(:bypass)

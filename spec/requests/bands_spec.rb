@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe BandsController, type: :request do
-  xdescribe 'GET /bands' do
+  describe 'GET /bands' do
     subject { get '/bands', params: params }
 
     let(:band) { create(:band) }
@@ -11,6 +11,7 @@ RSpec.describe BandsController, type: :request do
 
     before do
       band.tags << create(:tag)
+      BandsIndex.import
     end
 
     it 'returns a band and status 200' do
@@ -31,9 +32,7 @@ RSpec.describe BandsController, type: :request do
 
     it 'returns only active bands' do
       create(:band, active: false)
-
       subject
-
       expect(json_response[:bands].count).to eq(1)
     end
   end
