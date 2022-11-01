@@ -232,7 +232,7 @@ RSpec.describe 'Profile actions' do
         Rack::Test::UploadedFile.new(Rails.root.join('spec/', 'fixtures/', 'images/', 'band2.jpg'), 'image/jpeg', true)
       ]
     end
-    let(:params) { { band: { images: images } } }
+    let(:params) { { images: images } }
     let(:user) { create(:user) }
     let(:band) { create(:band, active: false, images: []) }
 

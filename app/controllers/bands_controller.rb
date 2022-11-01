@@ -84,7 +84,7 @@ class BandsController < ApplicationController
   end
 
   def band_images
-    params.require(:band).permit(:id, { images: [] })
+    params.permit(:id, { images: [] })
   end
 
   def search_params

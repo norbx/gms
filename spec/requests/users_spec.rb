@@ -132,7 +132,7 @@ RSpec.describe UsersController, type: :request do
     let(:avatar) do
       Rack::Test::UploadedFile.new(Rails.root.join('spec/', 'fixtures/', 'avatars/', 'avatar.jpg'), 'image/jpeg', true)
     end
-    let(:params) { { user: { avatar: avatar } } }
+    let(:params) { { avatar: avatar } }
 
     it 'creates and attaches the avatar, returns succesful response' do
       expect(user.avatar.attached?).to be(false)
