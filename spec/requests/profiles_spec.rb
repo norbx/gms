@@ -28,6 +28,24 @@ RSpec.describe 'Profile actions' do
     include_examples 'User not signed in'
   end
 
+  describe 'PUT /profile' do
+    subject { put '/profile', params: params, headers: headers }
+
+    let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
+    let(:user) { create(:user) }
+    let(:params) { { user: { name: 'New name', first_name: 'New', last_name: 'Name' } } }
+
+    it 'updates the current user' do
+      expect { subject }.to change { user.reload.name }.from(user.name).to('New name')
+        .and change { user.first_name }.from(user.first_name).to('New')
+        .and change { user.last_name }.from(user.last_name).to('Name')
+
+      expect(response).to have_http_status(200)
+    end
+
+    include_examples "User not signed in"
+  end
+
   describe 'GET /profile/bands' do
     subject { get '/profile/bands', headers: headers }
 
