@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TagsController < ApplicationController
-  before_action :authenticate, only: %i[index show]
+  before_action :authenticate, only: %i[show]
 
   def index
     render json: Tag.all, adapter: :json, root: 'tags'

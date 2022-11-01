@@ -18,8 +18,6 @@ RSpec.describe TagsController do
       expect(json_response[:tags][0][:id]).to be_present
       expect(json_response[:tags][0][:name]).to be_present
     end
-
-    include_examples 'User not signed in'
   end
 
   describe 'GET /tags/:id' do
