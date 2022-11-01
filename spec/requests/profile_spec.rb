@@ -55,7 +55,7 @@ RSpec.describe 'Profile actions' do
           description: 'test',
           contact_name: 'test',
           phone_number: 'number',
-          social_links: { fb: 'some fb link'},
+          social_links: { fb: 'some fb link' },
           tags_attributes: [
             {
               name: 'Jazz'

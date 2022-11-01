@@ -8,9 +8,6 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: { minimum: 6 }, if: :password
   validates :avatar, content_type: %i[png jpg jpeg],
-                     dimension: { width: { in: 200..512 },
-                                  height: { in: 200..512 },
-                                  message: 'should be between 200-512px in width and height' },
                      size: { less_than: 5.megabytes, message: 'file size should be lesser than 5mb' }
 
   has_and_belongs_to_many :bands
