@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :users, only: %i[index show create]
   resources :bands, only: %i[index show]
   resources :tags, only: %i[index show]
+  get '/profile', to: 'profiles#index'
 
   scope :profile do
     post :sessions, to: 'user_sessions#create', path: 'sign_in'

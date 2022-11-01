@@ -3,6 +3,31 @@
 require 'rails_helper'
 
 RSpec.describe 'Profile actions' do
+  describe 'GET /profile' do
+    subject { get '/profile', headers: headers }
+
+    let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
+    let(:user) { create(:user) }
+
+    it 'returns the current user' do
+      subject
+
+      expect(response).to have_http_status(200)
+      expect(json_response['user']).to be_a(Hash)
+      expect(json_response['user']['id']).to be_present
+      expect(json_response['user']['email']).to be_present
+      expect(json_response['user']['name']).to be_present
+      expect(json_response['user']['first_name']).to be_present
+      expect(json_response['user']['last_name']).to be_present
+      expect(json_response['user']['is_musician']).to be false
+      expect(json_response['user']['avatar_url']).not_to be_present
+      expect(json_response['user']['password']).not_to be_present
+      expect(json_response['user']['password_digest']).not_to be_present
+    end
+
+    include_examples 'User not signed in'
+  end
+
   describe 'GET /profile/bands' do
     subject { get '/profile/bands', headers: headers }
 
