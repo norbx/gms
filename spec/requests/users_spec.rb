@@ -124,8 +124,8 @@ RSpec.describe UsersController, type: :request do
     end
   end
 
-  describe 'PUT /profile/avatar' do
-    subject { put '/profile/avatar', params: params, headers: headers }
+  describe 'POST /profile/avatar' do
+    subject { post '/profile/avatar', params: params, headers: headers }
 
     let(:headers) { { HTTP_AUTHORIZATION: "Token #{JwtToken.generate_token(user)}" } }
     let(:user) { create(:user) }
