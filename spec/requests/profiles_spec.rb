@@ -37,13 +37,13 @@ RSpec.describe 'Profile actions' do
 
     it 'updates the current user' do
       expect { subject }.to change { user.reload.name }.from(user.name).to('New name')
-        .and change { user.first_name }.from(user.first_name).to('New')
-        .and change { user.last_name }.from(user.last_name).to('Name')
+                        .and change { user.first_name }.from(user.first_name).to('New')
+                        .and change { user.last_name }.from(user.last_name).to('Name')
 
       expect(response).to have_http_status(200)
     end
 
-    include_examples "User not signed in"
+    include_examples 'User not signed in'
   end
 
   describe 'GET /profile/bands' do

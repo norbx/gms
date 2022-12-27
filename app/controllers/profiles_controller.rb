@@ -9,9 +9,9 @@ class ProfilesController < ApplicationController
 
   def update
     if current_user.update(user_params)
-        render json: current_user, adapter: :json, root: 'user', status: :ok
+      render json: current_user, adapter: :json, root: 'user', status: :ok
     else
-        render json: current_user.errors.full_messages, root: 'user', status: :unprocessable_entity
+      render json: current_user.errors.full_messages, root: 'user', status: :unprocessable_entity
     end
   end
 

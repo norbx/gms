@@ -57,7 +57,7 @@ class BandsController < ApplicationController
     else
       render json: {
         errors: 'Image file should be lesser than 10mb ' \
-          'and of content_type png, jpg or jpeg. Max 5 images per band are allowed.'
+                'and of content_type png, jpg or jpeg. Max 5 images per band are allowed.'
       }
     end
   end

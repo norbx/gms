@@ -34,7 +34,7 @@ group :development, :test do
   gem 'faker', '~> 2.20'
   gem 'pry', '~> 0.14.1'
   gem 'rspec-rails', '~> 5.0', '>= 5.0.1'
-  gem 'rubocop', '~> 1.14'
+  gem 'rubocop', '~> 1.41', '>= 1.41.1'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
