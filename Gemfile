@@ -3,14 +3,14 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.1'
+ruby '3.0.5'
 
 gem 'active_model_serializers', '~> 0.10.13'
 gem 'active_storage_validations', '~> 0.9.8'
 gem 'aws-sdk-s3', '~> 1.113'
 gem 'bcrypt', '~> 3.1', '>= 3.1.16'
 gem 'bonsai-elasticsearch-rails', '~> 7.0', '>= 7.0.1'
-gem 'bootsnap', '>= 1.4.4', require: false
+gem 'bootsnap', '~> 1.15', require: false
 gem 'chewy', '~> 7.2', '>= 7.2.5'
 gem 'cloudinary', '~> 1.22'
 gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
