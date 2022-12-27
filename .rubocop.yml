@@ -5,6 +5,7 @@ AllCops:
   Exclude:
     - config.ru
     - bin/**/*
+    - vendor/**/*
 
 Metrics/BlockLength:
   Exclude:
