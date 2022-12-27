@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.0'
+ruby '3.0.1'
 
 gem 'active_model_serializers', '~> 0.10.13'
 gem 'active_storage_validations', '~> 0.9.8'
