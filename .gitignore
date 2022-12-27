@@ -34,3 +34,6 @@
 
 # Do not push /public dir to remote
 /public/**/*
+
+# Ruby gems local storage
+/vendor/bundle/**/*
