@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Tag < ApplicationRecord
-  update_index('bands') { bands }
-
   before_validation { name.capitalize! }
   validates :name, presence: true, uniqueness: true,
                    format: { with: /\A[0-9a-zA-Z]+-? ?[0-9a-z]+-? ?[0-9a-z]+\z/,

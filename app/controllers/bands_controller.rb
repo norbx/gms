@@ -4,8 +4,8 @@ class BandsController < ApplicationController
   before_action :authenticate, only: %i[user_bands create update deactivation activation upload_images destroy_image]
 
   def index
-    @bands = BandsIndex.query(query_string: { query: search_params, default_operator: 'and' }).objects.compact
-    render json: @bands, root: 'bands'
+    bands = search_params.empty? ? Band.all : Band.band_search(search_params)
+    render json: bands, root: 'bands'
   end
 
   def user_bands
@@ -88,6 +88,6 @@ class BandsController < ApplicationController
   end
 
   def search_params
-    params[:search].present? ? params[:search] : '*'
+    params.permit(:search)[:search]
   end
 end

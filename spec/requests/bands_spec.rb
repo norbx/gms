@@ -11,7 +11,6 @@ RSpec.describe BandsController, type: :request do
 
     before do
       band.tags << create(:tag)
-      BandsIndex.import
     end
 
     it 'returns a band and status 200' do

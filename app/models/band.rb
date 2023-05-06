@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 
 class Band < ApplicationRecord
-  update_index('bands') { self }
+  include PgSearch::Model
 
   has_and_belongs_to_many :users
   has_and_belongs_to_many :tags
   has_many_attached :images
+
+  pg_search_scope :band_search,
+    against: [:name, :description],
+    associated_against: { tags: [:name] },
+    using: { tsearch: { prefix: true } }
 
   validates :name, presence: true
   validates :images, if: :images,
