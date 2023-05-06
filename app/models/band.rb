@@ -8,9 +8,9 @@ class Band < ApplicationRecord
   has_many_attached :images
 
   pg_search_scope :band_search,
-    against: [:name, :description],
-    associated_against: { tags: [:name] },
-    using: { tsearch: { prefix: true } }
+                  against: %i[name description],
+                  associated_against: { tags: [:name] },
+                  using: { tsearch: { prefix: true } }
 
   validates :name, presence: true
   validates :images, if: :images,

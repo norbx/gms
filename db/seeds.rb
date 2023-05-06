@@ -8,7 +8,7 @@ diego = User.create(name: 'Diego', email: 'diego@mail.com', password_digest: BCr
 ronnie = User.create(name: 'Ronnie', email: 'ronnie@mail.com', password_digest: BCrypt::Password.create("password"))
 
 Band.create(
-  name: "The Bongos", 
+  name: "The Bongos",
   active: true,
   contact_name: "Sir Gregor Clegane",
   phone_number: "123456789",
