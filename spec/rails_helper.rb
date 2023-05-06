@@ -67,5 +67,4 @@ RSpec.configure do |config|
   #   Include FactoryBot methods
   config.include FactoryBot::Syntax::Methods
   config.include RequestHelpers
-  config.include Chewy::Rspec::Helpers
 end

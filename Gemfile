@@ -11,8 +11,6 @@ gem 'aws-sdk-s3', '~> 1.113'
 gem 'bcrypt', '~> 3.1', '>= 3.1.16'
 gem 'bonsai-elasticsearch-rails', '~> 7.0', '>= 7.0.1'
 gem 'bootsnap', '~> 1.15', require: false
-gem 'chewy', '~> 7.2', '>= 7.2.5'
-gem 'cloudinary', '~> 1.22'
 gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
 gem 'image_processing', '~> 1.12', '>= 1.12.2'
 gem 'jwt', '~> 2.3'

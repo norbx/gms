@@ -1,9 +1,0 @@
-# config/chewy.yml
-# separate environment configs
-production:
-  host: <%= ENV.fetch('BONSAI_URL') %>
-test:
-  host: 'localhost:9250'
-  prefix: 'test'
-development:
-  host: <%= ENV.fetch('BONSAI_URL') %>
